@@ -1,0 +1,20 @@
+// multiplication always takes first precedence when there is no brackets
+
+// let x = 20 + 4 * 3; // first 4 * 3 gets computed 
+
+// // then the result gets added to the value 20
+// console.log(x);
+
+
+// let y = (20 + 30) * 4;
+// // when values are shown in paranthese then those values get computed first
+
+// console.log(y);
+
+// let z = 50 / 5 * 2; // first values from left to right computed first
+// console.log(z);
+
+
+let price = 100;
+if (price != 100) console.log("its  expensive");
+else console.log("its cheap");

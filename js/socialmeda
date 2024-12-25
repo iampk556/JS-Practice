@@ -1,0 +1,93 @@
+Key Features for the Basic Social Network
+For the initial version, we’ll keep it simple with essential features:
+
+User Registration and Authentication
+User Profiles
+Adding Friends (or Following)
+Creating and Viewing Posts
+Liking and Commenting on Posts
+Viewing a Basic Feed
+Step-by-Step Breakdown
+1. User Registration and Authentication
+Purpose: Allow users to create an account and log in.
+
+Key Information:
+
+username
+password
+email (optional for now)
+status (e.g., "online" or "offline")
+Implementation:
+
+Create a users array to hold all registered users.
+Write functions for:
+Registering a New User: Prompt for username, password, and other details.
+Login: Prompt for username and password, then check against the users array for matching credentials.
+2. User Profiles
+Purpose: Store and display basic user information.
+
+Profile Information:
+
+name
+age
+bio (short description or status)
+profilePicture (optional for now)
+Implementation:
+
+Each user in the users array should have a profile object with these details.
+Allow users to update their profile information.
+Create a viewProfile function to display a user’s profile information when needed.
+
+
+3. Adding Friends 
+Purpose: Enable users to connect with others by "adding" them as friends or following them.
+Implementation:
+Add a friends array  to each user.
+Write functions to:
+Send Friend Request : Allow one user to add another user by username.
+Confirm Friend Request: Automatically confirm for simplicity, or add a manual step if you want.
+Display Friends List: Show a list of the user’s friends.
+
+
+4. Creating and Viewing Posts
+Purpose: Allow users to create posts and view posts from others.
+
+Post Information:
+
+author: Username of the user creating the post.
+content: Text or short message.
+timestamp: When the post was created.
+Implementation:
+
+Create an empty posts array to store all posts.
+Write functions to:
+Create Post: Prompt for post content, then add a new post to the posts array with author, content, and timestamp.
+View All Posts: Display all posts in the posts array.
+
+
+5. Liking and Commenting on Posts
+Purpose: Enable interaction on posts via likes and comments.
+
+Like and Comment Information:
+
+likes: Number of likes for each post.
+comments: Array of comments, each with author, content, and timestamp.
+Implementation:
+
+For each post, add likes and comments properties.
+Write functions to:
+Like a Post: Increase the likes count by 1 each time a user likes a post.
+Comment on a Post: Prompt for comment content, then add it to the post’s comments array.
+
+
+6. Viewing a Basic Feed
+Purpose: Show posts from the user’s friends (or everyone for now) in a feed.
+
+Feed Information:
+
+feed: Array of posts relevant to the user.
+Implementation:
+
+Write a viewFeed function that:
+Shows posts from the user’s friends.
+If you want to keep it simple, show all posts for now and filter by friends later.
