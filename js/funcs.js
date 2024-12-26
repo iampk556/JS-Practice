@@ -117,14 +117,44 @@ function userLogin() {
     let loginEmail = prompt("Please enter your login email");
     if (!loginEmail) {
         console.log("Enter the email address");
-        return;
+        return null;
     }
     let user = users.find(user => user.email === loginEmail);
     if (user) {
         console.log(`Welcome ${user.userName}`);
         addSongs(); // let the user add songs
+        return user;
     }
     else {
         console.log("Sorry this email does not exist!");
+        return null;
     }
+}
+
+// once the user has logged in, allow the user to play the songs
+// first fetch all the songs in the songsLibrabry
+// then let the user play
+
+
+let currentUser = userLogin();
+if (currentUser) {
+    let playedSongs = [];
+    if (!currentUser.playedSongs) {
+        currentUser.playedSongs = [];
+
+    }
+
+    songsLibrary.forEach(song => {
+        console.log(song);
+        let songAction = prompt(`Would you like to play this song? ${song}`);
+        if (songAction && songAction.toLocaleLowerCase() === "play") {
+            console.log(`playing ${song}`);
+            playedSongs.push(song);
+            currentUser.playedSongs.push(song);
+        } else if (songAction === null) {
+            console.log("Prompt cancelled")
+        } else {
+            console.log(`song ${song} skipped `);
+        }
+    });
 }
