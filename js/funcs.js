@@ -47,6 +47,12 @@ function addSongs() {
             songTitle = String(prompt("Enter the song title"));
             if (songTitle === "exit") break;
             let songType = String(prompt(`Is ${songTitle} a free song or Premium?. type premium/free`).toLocaleLowerCase());
+            let song = {
+                title: songTitle,
+                artist: songArtist,
+                isPremium: songType === "premium"
+            };
+
             songsLibrary.push(songTitle);
             if (songType === "premium") {
                 premiumSongs.push(songTitle);
@@ -106,6 +112,13 @@ function createUsers() {
         // Add the new user to the users array
         users.push({ userName, password, email, accountType });
         console.log(`Account created successfully for ${email}`);
+
+        let user = {
+            userName: userName,
+            userEmail: email,
+            userPass: password,
+            userType: accountType
+        };
     }
 }
 
@@ -148,13 +161,46 @@ if (currentUser) {
         console.log(song);
         let songAction = prompt(`Would you like to play this song? ${song}`);
         if (songAction && songAction.toLocaleLowerCase() === "play") {
-            console.log(`playing ${song}`);
-            playedSongs.push(song);
-            currentUser.playedSongs.push(song);
+            // check if the selected song is premium
+            // then see whether the user has access to premium songs or not
+            // if not then display a error message
+            if (songAction === "play" && song.isPremium && currentUser.accountType !== "premium") {
+                console.log("you don't have access to premium songs.");
+            } else {
+                console.log(`playing ${song}`);
+                playedSongs.push(song);
+                currentUser.playedSongs.push(song);
+            }
+
         } else if (songAction === null) {
             console.log("Prompt cancelled")
         } else {
             console.log(`song ${song} skipped `);
         }
     });
+}
+
+
+// allow the user to manage playlists
+
+function createPlaylist(user) {
+    let playlistName = prompt("Enter the name of your new playlist");
+    if (!playlistName) {
+        console.log("Play list name can not be empty");
+        return;
+    }
+    let newPlaylist = {
+        name: playlistName,
+        song: [],
+        owner: user.userEmail
+    };
+    playlistName.push(newPlaylist);
+    console.log(`play list ${playlistName} created successfully`);
+}
+
+
+function addSongsToPlayList(user) {
+    let playlistName = prompt("Enter the name of the playlist you want to add songs to");
+    let playlist = playlists.find(pl => pl.name === playlistName && pl.owner === user.userEmail);
+
 }
