@@ -232,6 +232,18 @@ function viewPlaylists(user) {
 
 
 function removeSongFromPlaylist(user) {
+
+    // check if there are any playlists in the system
+    if (playlists.length === 0) {
+        console.log("No playlists avaialble to delete")
+        return;
+    }
+    // see if the current user has any playlists or not
+    let userPlaylists = playlists.filter(pl => pl.owner === user.userEmail)
+    if (userPlaylists.length === 0) {
+        console.log(`${user.userName} has no playlists`)
+        return;
+    }
     let playlistName = prompt("Enter the name of the playlist you want to remove a song from:");
     let playlist = playlists.find(pl => pl.name === playlistName && pl.owner === user.userEmail);
     if (!playlist) {
@@ -246,4 +258,52 @@ function removeSongFromPlaylist(user) {
     }
     playlist.songs.splice(songIndex, 1);
     console.log(`Song '${songTitle}' removed from playlist '${playlistName}'.`);
+}
+
+
+// find a  playlist and add a new song to the same
+
+function addNewSongToPlaylist(user) {
+    if (playlists.length === 0) {
+        console.log("No playlists available to add songs");
+        return;
+    }
+    let myPlaylistName = prompt("Enter the name of the playlist you want to add song to")
+    if (!myPlaylist) {
+        console.log("No playlist found with that name")
+        return;
+    }
+
+    let myPlaylist = playlists.find(pl => pl.name === myPlaylistName && pl.owner === user.userEmail)
+    if (!myPlaylist) {
+        console.log("No playlist with that name found for the user")
+        return;
+    }
+    if (myPlaylist.songs.length >= 10) {
+        console.log("This playlist is full")
+        return;
+    }
+
+    let newSongTitle = prompt("Enter the new song title")
+    if (!newSongTitle) {
+        console.log("Song title is required. Pls add")
+        return;
+    }
+
+    let songExists = myPlaylist.songs.some(song => song.title === newSongTitle)
+    if (songExists) {
+        console.log("this song already exists.")
+        return;
+    }
+
+    let newSong = {
+        title: newSongTitle,
+        artist: prompt("Enter the artist name"),
+        isPremium: prompt("is this premium (yes/no").toLocaleLowerCase() == "yes"
+
+    }
+
+    myPlaylist.songs.push(newSong);
+    console.log("New song is added");
+
 }
