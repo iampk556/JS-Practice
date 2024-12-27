@@ -204,3 +204,46 @@ function addSongsToPlayList(user) {
     let playlist = playlists.find(pl => pl.name === playlistName && pl.owner === user.userEmail);
 
 }
+
+
+// view the playlists of a user
+
+function viewPlaylists(user) {
+    let userPlaylists = playlists.filter(pl => pl.owner === user.userEmail)
+    if (userPlaylists.length === 0) {
+        console.log("You don't have any playlists");
+        return;
+    }
+    userPlaylists.forEach(pl => {
+        console.log(`playlists: ${pl.name}`);
+        pl.songs.forEach(song => {
+            console.log(`${song.title} by ${song.artist}`)
+        });
+    });
+
+}
+
+
+// first find if the currently logged in user has any playlists
+// if? then store them in a variable to perform the delete action
+// once found? then show the user which playlists they want to delete
+// then take which playlist id to be deleted and then delete
+// then show the users the playlist id is deleted and the remaining playlist
+
+
+function removeSongFromPlaylist(user) {
+    let playlistName = prompt("Enter the name of the playlist you want to remove a song from:");
+    let playlist = playlists.find(pl => pl.name === playlistName && pl.owner === user.userEmail);
+    if (!playlist) {
+        console.log("Playlist not found or you do not have access to this playlist.");
+        return;
+    }
+    let songTitle = prompt("Enter the title of the song you want to remove:");
+    let songIndex = playlist.songs.findIndex(song => song.title === songTitle);
+    if (songIndex === -1) {
+        console.log("Song not found in the playlist.");
+        return;
+    }
+    playlist.songs.splice(songIndex, 1);
+    console.log(`Song '${songTitle}' removed from playlist '${playlistName}'.`);
+}
