@@ -50,6 +50,7 @@ function addSongs() {
             let song = {
                 title: songTitle,
                 artist: songArtist,
+                ratings: [],
                 isPremium: songType === "premium"
             };
 
@@ -305,5 +306,32 @@ function addNewSongToPlaylist(user) {
 
     myPlaylist.songs.push(newSong);
     console.log("New song is added");
+
+}
+
+// adding the rating functionality to each song
+
+
+function rateSong(user, songTitle) {
+    let songTitle = prompt("Search the song title to rate")
+    if (!songTitle) {
+        console.log(` Song title is required`);
+        return;
+    }
+    let song = songsLibrary.find(song => song.title === songTitle)
+    if (!song) {
+        console.log(`${songTitle} is not found`)
+        return;
+    }
+    // if the song title is found
+    let rating = Number(prompt(`how do you rate this song ${songTitle} between 1-5`));
+    if (isNaN(rating) || rating < 1 || rating > 5) {
+        console.log("Please enter rating between 1- 5")
+        return;
+    }
+
+    song.ratings.push(rating);
+    console.log(`Rating ${rating} is added to the song ${songTitle}`)
+
 
 }
